@@ -13,7 +13,7 @@
 <script>
     var ws;
     window.onload = function () {
-        ws = new WebSocket("ws://127.0.0.1:8100");
+        ws = new WebSocket("ws://127.0.0.1:6379");
         console.log(ws);
         ws.addEventListener('open', function (event){
             console.log(123);
