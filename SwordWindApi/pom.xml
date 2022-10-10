@@ -7,26 +7,19 @@
         <groupId>com.poethan</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>com.poethan.SwordWindServer</groupId>
-    <artifactId>SwordWindServer</artifactId>
+    <groupId>com.poethan.SwordWindApi</groupId>
+    <artifactId>SwordWindApi</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>SwordWindServer</name>
-    <description>SwordWindServer</description>
+    <name>SwordWindApi</name>
+    <description>SwordWindApi</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
         <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-all</artifactId>
-            <version>4.1.82.Final</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-            <scope>compile</scope>
         </dependency>
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -34,13 +27,18 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.poethan.Gear</groupId>
-            <artifactId>Gear</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>com.poethan.SwordWindMemCache</groupId>
             <artifactId>SwordWindMemCache</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.poethan.SwordWindData</groupId>
+            <artifactId>SwordWindData</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
