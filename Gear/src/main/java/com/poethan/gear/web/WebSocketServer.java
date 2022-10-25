@@ -1,7 +1,5 @@
 package com.poethan.gear.web;
 
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -13,13 +11,14 @@ import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Setter
+@Slf4j
 public class WebSocketServer {
     private int port;
     private WebSocketServerHandler webSocketServerHandler;
-    private final static Logger logger = LoggerFactory.getLogger(WebSocketServer.class);
     public static WebSocketServer newInstance(int port){
         WebSocketServer webSocketServer = new WebSocketServer();
         webSocketServer.setPort(port);
@@ -62,7 +61,7 @@ public class WebSocketServer {
                     });
             // 监听端口
             Channel ch = b.bind(this.port).sync().channel();
-            logger.debug("start ws://127.0.0.1:"+this.port);
+            log.info("start ws://127.0.0.1:"+this.port);
             this.callAfterServerStarted();
             ch.closeFuture().sync();
         } finally {

@@ -1,8 +1,6 @@
 package com.poethan.gear.web;
 
 import com.poethan.gear.core.Env;
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
@@ -15,6 +13,7 @@ import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.websocketx.*;
 import io.netty.util.CharsetUtil;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import static io.netty.handler.codec.http.HttpUtil.isKeepAlive;
 import static io.netty.handler.codec.http.HttpUtil.setContentLength;
@@ -22,8 +21,8 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 import static io.netty.handler.codec.rtsp.RtspResponseStatuses.BAD_REQUEST;
 
 @Setter
+@Slf4j
 class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> {
-    private final Logger logger = LoggerFactory.getLogger(WebSocketServerHandler.class);
     private WebSocketServerHandshaker handshaker;
     private final WebSocketServer webSocketServer;
 
@@ -92,9 +91,9 @@ class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> {
             // 返回应答消息
             String request = ((TextWebSocketFrame) frame).text();
             if(Env.isDev()){
-                logger.debug("Client:"+ ctx.name() +"; Message:"+request);
+                log.info("Client:"+ ctx.name() +"; Message:"+request);
             }
-            logger.debug(String.format("%s received %s", ctx.channel(), request));
+            log.info(String.format("%s received %s", ctx.channel(), request));
 
             ctx.channel().write(
                     new TextWebSocketFrame(request
