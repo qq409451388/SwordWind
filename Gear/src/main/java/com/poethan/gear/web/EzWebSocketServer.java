@@ -1,5 +1,6 @@
 package com.poethan.gear.web;
 
+import com.poethan.gear.utils.DBC;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -7,8 +8,6 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
-import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
-import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -16,24 +15,17 @@ import lombok.extern.slf4j.Slf4j;
 
 @Setter
 @Slf4j
-public class WebSocketServer {
+public class EzWebSocketServer {
     private int port;
-    private WebSocketServerHandler webSocketServerHandler;
-    public static WebSocketServer newInstance(int port){
-        WebSocketServer webSocketServer = new WebSocketServer();
-        webSocketServer.setPort(port);
-        webSocketServer.setWebSocketServerHandler(new WebSocketServerHandler(webSocketServer));
-        return webSocketServer;
+    private IEzWebSocketServerHandler webSocketServerHandler;
+    public static EzWebSocketServer newInstance(int port){
+        EzWebSocketServer ezWebSocketServer = new EzWebSocketServer();
+        ezWebSocketServer.setPort(port);
+        return ezWebSocketServer;
     }
 
-    public void callAfterServerStarted(){}
-
-    public void callAfterChannelClose(ChannelHandlerContext ctx, CloseWebSocketFrame frame){
-
-    }
-
-    public void callAfterMessageComeIn(ChannelHandlerContext ctx, TextWebSocketFrame frame){}
     public void run() throws Exception {
+        DBC.assertNonNull(this.webSocketServerHandler, "WebSocketServer SocketHandler Must Be Set!");
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
@@ -62,7 +54,7 @@ public class WebSocketServer {
             // 监听端口
             Channel ch = b.bind(this.port).sync().channel();
             log.info("start ws://127.0.0.1:"+this.port);
-            this.callAfterServerStarted();
+            this.webSocketServerHandler.callAfterServerStarted();
             ch.closeFuture().sync();
         } finally {
             bossGroup.shutdownGracefully();

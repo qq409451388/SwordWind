@@ -22,16 +22,11 @@ import static io.netty.handler.codec.rtsp.RtspResponseStatuses.BAD_REQUEST;
 
 @Setter
 @Slf4j
-class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> {
+abstract public class EzWebSocketServerHandler extends SimpleChannelInboundHandler<Object> implements IEzWebSocketServerHandler {
     private WebSocketServerHandshaker handshaker;
-    private final WebSocketServer webSocketServer;
-
-    public WebSocketServerHandler(WebSocketServer webSocketServer){
-        this.webSocketServer = webSocketServer;
-    }
 
     @Override
-    public void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
         // 传统的HTTP接入（握手流程是走这里的）
         if (msg instanceof FullHttpRequest) {
             handleHttpRequest(ctx, (FullHttpRequest) msg);
@@ -75,7 +70,7 @@ class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> {
         if (frame instanceof CloseWebSocketFrame) {
             handshaker.close(ctx.channel(),
                     (CloseWebSocketFrame) frame.retain());
-            this.webSocketServer.callAfterChannelClose(ctx, (CloseWebSocketFrame) frame);
+            this.callAfterChannelClose(ctx, (CloseWebSocketFrame) frame);
             return;
         }
 
@@ -91,15 +86,9 @@ class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> {
             // 返回应答消息
             String request = ((TextWebSocketFrame) frame).text();
             if(Env.isDev()){
-                log.info("Client:"+ ctx.name() +"; Message:"+request);
+                this.info("Client {} Send Message:{}", ctx.channel(), request);
             }
-            log.info(String.format("%s received %s", ctx.channel(), request));
-
-            ctx.channel().write(
-                    new TextWebSocketFrame(request
-                            + " , 欢迎使用Netty WebSocket服务，现在时刻："
-                            + new java.util.Date()));
-            this.webSocketServer.callAfterMessageComeIn(ctx, (TextWebSocketFrame) frame);
+            this.callAfterMessageComeIn(ctx, (TextWebSocketFrame) frame);
             return;
         }
 
@@ -130,5 +119,17 @@ class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> {
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         cause.printStackTrace();
         ctx.close();
+    }
+
+    protected void info(String t, Object ...args){
+        log.info(t, args);
+    }
+
+    protected void warn(String t, Object ...args){
+        log.warn(t, args);
+    }
+
+    protected void error(String t, Object ...args){
+        log.error(t, args);
     }
 }

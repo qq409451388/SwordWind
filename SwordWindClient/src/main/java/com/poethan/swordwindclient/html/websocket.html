@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+    <input type="text" id="ipt">
+    <button onclick="send()">发送</button>
+</body>
+<script>
+    var ws = new WebSocket("ws://127.0.0.1:8100");
+    ws.onopen = function(event){
+        console.log(event);
+    }
+
+    ws.onmessage = function(event){
+        console.log(event.data);
+    }
+
+    function send(){
+        var data = $("#ipt").val();
+        ws.send(data);
+    }
+</script>
+</html>
