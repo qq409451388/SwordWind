@@ -1,7 +1,6 @@
 package com.poethan.gear.aspect;
 
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -16,7 +15,8 @@ public class SchdulerJobAspect {
     }
 
     @Around(value = "jobPointCut()")
-    public Object jobPointCutRun(ProceedingJoinPoint pjp, JoinPoint joinPoint) {
+    public Object jobPointCutRun(ProceedingJoinPoint pjp) {
+        log.error("SchdulerJob({}) Register Fail!", pjp.getClass().getSimpleName());
         try{
             Object ret = pjp.proceed();
             return ret;

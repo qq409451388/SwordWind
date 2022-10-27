@@ -7,8 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SwordWindServer {
     public static void main(String[] args){
-        EzWebSocketServer ezWebSocketServer = EzWebSocketServer.newInstance(8100);
-        ezWebSocketServer.setWebSocketServerHandler(new SwordWindServerHandler());
+        EzWebSocketServer ezWebSocketServer = new EzWebSocketServer(8100, SwordWindServerHandler.class);
         try {
             ezWebSocketServer.run();
         } catch (Exception e) {

@@ -61,6 +61,7 @@ abstract public class EzWebSocketServerHandler extends SimpleChannelInboundHandl
                     .sendUnsupportedWebSocketVersionResponse(ctx.channel());
         } else {
             handshaker.handshake(ctx.channel(), req);
+            this.callAfterChannelStart(ctx, req);
         }
     }
 

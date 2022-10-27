@@ -1,6 +1,5 @@
 package com.poethan.gear.web;
 
-import com.poethan.gear.utils.DBC;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -16,16 +15,15 @@ import lombok.extern.slf4j.Slf4j;
 @Setter
 @Slf4j
 public class EzWebSocketServer {
-    private int port;
-    private IEzWebSocketServerHandler webSocketServerHandler;
-    public static EzWebSocketServer newInstance(int port){
-        EzWebSocketServer ezWebSocketServer = new EzWebSocketServer();
-        ezWebSocketServer.setPort(port);
-        return ezWebSocketServer;
+    protected int port;
+    protected Class<? extends EzWebSocketServerHandler> ezWebSocketHandlerClass;
+
+    public EzWebSocketServer(int port, Class<? extends EzWebSocketServerHandler> ezWebSocketHandlerClass){
+        this.setPort(port);
+        this.setEzWebSocketHandlerClass(ezWebSocketHandlerClass);
     }
 
     public void run() throws Exception {
-        DBC.assertNonNull(this.webSocketServerHandler, "WebSocketServer SocketHandler Must Be Set!");
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
@@ -48,17 +46,19 @@ public class EzWebSocketServer {
                             ch.pipeline().addLast("http-chunked",
                                     new ChunkedWriteHandler());
                             // websocket 处理类
-                            pipeline.addLast("handler", webSocketServerHandler);
+                            pipeline.addLast("handler", ezWebSocketHandlerClass.newInstance());
                         }
                     });
             // 监听端口
             Channel ch = b.bind(this.port).sync().channel();
             log.info("start ws://127.0.0.1:"+this.port);
-            this.webSocketServerHandler.callAfterServerStarted();
+            this.callAfterServerStart();
             ch.closeFuture().sync();
         } finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
     }
+
+    protected void callAfterServerStart(){}
 }

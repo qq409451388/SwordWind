@@ -14,8 +14,8 @@ public class SchduleFactory {
     }
 
     public static void run(){
-        add(new HealthCheckJob());
         for(Schduler schduler : schdulerList){
+            log.info("Schdule {} Startting!", HealthCheckJob.class.getSimpleName());
             (new Thread(schduler::run, HealthCheckJob.class.getSimpleName())).start();
         }
         log.info("Schdule Start Success!");
