@@ -37,16 +37,16 @@ public class EzLocalLogAspect {
             Object args = pjp.getArgs();
             String traceId = SystemUtils.getTraceId();
             log.info("\n----------------[Gear] Invoke Enter----------------\n" +
-                    "TraceId:{}, Class:{}, Method:{}, With Args:{}", traceId, className, methodName, JsonUtils.encode(args));
+                    "traceId:{}, class:{}, method:{}, with args:{}", traceId, className, methodName, JsonUtils.encode(args));
             Object ret = pjp.proceed();
             if(isTime){
                 SystemUtils.endTimeKeeping();
                 log.info("\n----------------[Gear] Invoke Leave----------------\n" +
-                        "TraceId:{}, Class:{}, Method:{}, With Return:{} [consume {}ms]",
+                        "traceId:{}, class:{}, method:{}, with return:{} [consume {}ms]",
                         traceId, className, methodName, JsonUtils.encode(ret), SystemUtils.consume());
             }else{
                 log.info("\n----------------[Gear] Invoke Leave----------------\n" +
-                        "TraceId:{}, Class:{}, Method:{}, With Return:{}",
+                        "traceId:{}, class:{}, method:{}, with return:{}",
                         className, traceId, methodName, JsonUtils.encode(ret));
             }
 
