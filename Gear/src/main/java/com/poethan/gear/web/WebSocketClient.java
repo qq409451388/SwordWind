@@ -11,9 +11,8 @@ public class WebSocketClient {
     private Session session;
 
     public void connect(String ip, int port) {
-        String uri = "ws://"+ip+":"+port+"/ws";
-        WebSocketContainer container = null;
-        container = ContainerProvider.getWebSocketContainer();
+        String uri = "ws://"+ip+":"+port;
+        WebSocketContainer container = ContainerProvider.getWebSocketContainer();
 
         try {
             URI r = URI.create(uri);
@@ -26,7 +25,7 @@ public class WebSocketClient {
 
     public void send(String message){
         try {
-            this.session.getBasicRemote().sendText("java client: " + message);
+            this.session.getBasicRemote().sendText(message);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

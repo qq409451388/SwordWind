@@ -23,7 +23,7 @@ public class SwordWindServerHandler extends EzWebSocketServerHandler {
     }
 
     private String dealRequest(String request){
-        return "欢迎使用Netty WebSocket服务，现在时刻：" + new java.util.Date();
+        return new java.util.Date().toString();
     }
 
 }

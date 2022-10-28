@@ -2,7 +2,6 @@ package com.poethan.swordwindmemcache;
 
 import com.poethan.gear.web.EzWebSocketServer;
 import com.poethan.gear.web.EzWebSocketServerHandler;
-import com.poethan.swordwindmemcache.schdule.SchduleFactory;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
@@ -24,7 +23,6 @@ public class SwordWindMemServer extends EzWebSocketServer {
 
     @Override
     protected void callAfterServerStart() {
-        SchduleFactory.run();
     }
 
     public static class SwordWindMemHandler extends EzWebSocketServerHandler {
@@ -41,7 +39,7 @@ public class SwordWindMemServer extends EzWebSocketServer {
 
         @Override
         public void callAfterMessageComeIn(ChannelHandlerContext ctx, TextWebSocketFrame frame) {
-            System.out.println(frame.content());
+            ctx.channel().write("OK");
         }
     }
 }

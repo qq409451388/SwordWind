@@ -1,4 +1,4 @@
-package com.poethan.swordwindmemcache.schdule;
+package com.poethan.swordwindserver.schdule;
 
 public interface Schduler {
     public void run();

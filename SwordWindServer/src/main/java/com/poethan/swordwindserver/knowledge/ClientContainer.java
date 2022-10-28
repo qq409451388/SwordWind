@@ -1,4 +1,4 @@
-package com.poethan.swordwindmemcache.knowledge;
+package com.poethan.swordwindserver.knowledge;
 
 
 import com.poethan.swordwinddata.vo.WebSocketClientVO;

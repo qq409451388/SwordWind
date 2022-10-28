@@ -6,7 +6,7 @@ import javax.websocket.*;
 public class WebSocketClientHandler {
     @OnOpen
     public void onOpen(Session session) {
-        System.out.println("已连接，请输入要发送的信息：");
+        System.out.println(session);
     }
 
     @OnMessage
