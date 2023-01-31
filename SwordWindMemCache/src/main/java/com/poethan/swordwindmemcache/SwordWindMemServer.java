@@ -7,13 +7,19 @@ import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+
 public class SwordWindMemServer extends EzWebSocketServer {
     public SwordWindMemServer(int port, Class<? extends EzWebSocketServerHandler> ez){
         super(port, ez);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnsupportedEncodingException {
         EzWebSocketServer ezWebSocketServer = new SwordWindMemServer(6379, SwordWindMemHandler.class);
+        String a = URLDecoder.decode("BXgGNwc1UDAHagg9ADZWNVU7BzlbagItULhQ9gLrCLAMiQGgV+JVzFvOUJdVK1AyVCM=", "UTF-8");
+        System.out.println(a);
         try {
             ezWebSocketServer.run();
         } catch (Exception e) {
@@ -29,7 +35,6 @@ public class SwordWindMemServer extends EzWebSocketServer {
 
         @Override
         public void callAfterChannelStart(ChannelHandlerContext ctx, FullHttpRequest req) {
-
         }
 
         @Override
