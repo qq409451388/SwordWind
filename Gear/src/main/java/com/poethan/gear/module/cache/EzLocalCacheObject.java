@@ -1,18 +1,15 @@
 package com.poethan.gear.module.cache;
 
-import com.poethan.gear.module.BaseDTO;
-import com.poethan.gear.utils.EzDate;
+import com.poethan.gear.module.BaseVO;
 import com.poethan.gear.utils.SystemUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Objects;
-
 @Getter
 @Setter
 @ToString
-public class EzLocalCacheObject extends BaseDTO {
+public class EzLocalCacheObject extends BaseVO {
     private Object dataSource;
     private int dataType;
     private int expire = 0;

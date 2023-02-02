@@ -1,9 +1,13 @@
 package com.poethan.gear.utils;
 
-import java.math.BigInteger;
+import com.poethan.gear.module.BaseVO;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 public class EncodeUtils {
     public static String md5(String data) {
@@ -21,6 +25,10 @@ public class EncodeUtils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static String dump(Object object) {
+        return String.format("[@%s] %s", object.getClass().getSimpleName(), JsonUtils.encode(object));
     }
 
 }

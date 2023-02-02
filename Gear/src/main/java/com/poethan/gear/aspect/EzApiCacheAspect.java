@@ -2,7 +2,9 @@ package com.poethan.gear.aspect;
 
 import com.poethan.gear.anno.EzApiCache;
 import com.poethan.gear.module.cache.EzLocalCache;
+import com.poethan.gear.utils.EncodeUtils;
 import com.poethan.gear.utils.JsonUtils;
+import com.poethan.gear.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -36,11 +38,23 @@ public class EzApiCacheAspect {
             int expire = ezApiCache.expire();
             String className = methodSignature.getDeclaringType().getSimpleName();
             String methodName = methodSignature.getName();
-            Object args = pjp.getArgs();
-            String key = methodName + "@" + className + ":" + JsonUtils.encode(args);
+            Object[] args = pjp.getArgs();
+            StringBuilder keySb = new StringBuilder(className)
+                    .append("::")
+                    .append(methodName)
+                    .append("(");
+            for (Object arg : args) {
+                keySb.append(EncodeUtils.dump(arg));
+                keySb.append(",");
+            }
+            if (args.length > 0) {
+                keySb.deleteCharAt(keySb.length()-1);
+            }
+            keySb.append(")");
+            String key = keySb.toString();
             if (Objects.nonNull(ezCache.getSource(key))) {
                 Object source = ezCache.getSource(key);
-                log.info(key + " return "+JsonUtils.encode(source)+" from cache");
+                log.info(key + " return "+ EncodeUtils.dump(source)+" from cache");
                 return source;
             }
 

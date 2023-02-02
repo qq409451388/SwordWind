@@ -9,5 +9,5 @@ public @interface EzApiCache {
     /**
      * 过期时间
      */
-    public int expire();
+    public int expire() default 3600;
 }

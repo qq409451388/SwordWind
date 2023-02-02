@@ -58,10 +58,8 @@ public class ChatApi {
     }
 
     @EzLocalLog(EnableConsume = true)
-    @EzApiCache(expire=10)
     @GetMapping("/getList")
     public EzRpcResponse getList() {
-        SystemUtils.sleep(2000);
-        return EzRpcResponse.OK(Lists.newArrayList(1,2,3,4));
+        return EzRpcResponse.OK(tempLogic.getList("qq", "wechat", 23));
     }
 }

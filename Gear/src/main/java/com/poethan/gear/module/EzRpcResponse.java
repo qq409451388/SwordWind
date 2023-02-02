@@ -8,7 +8,7 @@ import org.apache.logging.log4j.util.Strings;
 @Getter
 @Setter
 @ToString
-public class EzRpcResponse extends BaseDTO {
+public class EzRpcResponse extends BaseVO {
     private int code;
     private Object data;
     private String msg;
