@@ -1,9 +1,12 @@
 package com.poethan.swordwindapi.api;
 
+import com.poethan.gear.anno.EzApiCache;
 import com.poethan.gear.anno.EzLocalLog;
+import com.poethan.gear.module.EzRpcResponse;
 import com.poethan.gear.utils.SystemUtils;
 import com.poethan.swordwindapi.logic.MemCacheLogic;
 import com.poethan.swordwindapi.logic.TempLogic;
+import org.assertj.core.util.Lists;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,5 +55,13 @@ public class ChatApi {
     @GetMapping("/push")
     public void push(String m) {
         tempLogic.publish(m, "order.direct", "test.routingkey");
+    }
+
+    @EzLocalLog(EnableConsume = true)
+    @EzApiCache(expire=10)
+    @GetMapping("/getList")
+    public EzRpcResponse getList() {
+        SystemUtils.sleep(2000);
+        return EzRpcResponse.OK(Lists.newArrayList(1,2,3,4));
     }
 }

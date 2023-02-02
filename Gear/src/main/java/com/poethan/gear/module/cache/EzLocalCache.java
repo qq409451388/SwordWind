@@ -3,18 +3,19 @@ package com.poethan.gear.module.cache;
 import com.poethan.gear.utils.DBC;
 import com.poethan.gear.utils.SystemUtils;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class EzLocalCache {
+@Component
+public class EzLocalCache extends EzCache {
     private final static ConcurrentHashMap<String, EzLocalCacheObject> data = new ConcurrentHashMap<>();
     private final static String EXCEPTION_PREFIX = "[EzLocalCache Exception] ";
     private final static String UNSUPPORT_COMMAND = EXCEPTION_PREFIX + "Unsupport Command %s From %s";
 
     private boolean has(String key) {
-        return Objects.isNull(data.get(key));
+        return Objects.nonNull(data.get(key));
     }
 
     private EzLocalCacheObject fetch(String key) {
@@ -47,7 +48,10 @@ public class EzLocalCache {
     }
 
     public boolean exists(String key) {
-        return this.has(key) && (!this.isExpire(key) || !this.del(key));
+        if (!this.has(key) || (this.isExpire(key) && this.del(key)) ) {
+            return false;
+        }
+        return true;
     }
 
     public boolean del (String key) {
@@ -64,6 +68,18 @@ public class EzLocalCache {
     public boolean set (String key, String value) {
         data.put(key, EzLocalCacheObject.create(value));
         return true;
+    }
+
+    public boolean setSourceEX (String key, Object value, int expire) {
+        data.put(key, EzLocalCacheObject.create(value, expire, EzLocalCacheObject.T_OBJECT));
+        return true;
+    }
+
+    public Object getSource (String key) {
+        if (!this.exists(key)) {
+            return null;
+        }
+        return this.fetch(key).getDataSource();
     }
 
     public boolean setEX(String key, String value, int expire) {

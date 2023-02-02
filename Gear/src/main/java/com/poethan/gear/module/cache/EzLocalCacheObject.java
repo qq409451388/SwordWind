@@ -22,6 +22,7 @@ public class EzLocalCacheObject extends BaseDTO {
     public final static int T_FLOAT = 3;
     public final static int T_LIST = 4;
     public final static int T_MAP = 5;
+    public final static int T_OBJECT = 10;
 
     public static EzLocalCacheObject create (Object value, int expire, int dataType) {
         EzLocalCacheObject o = new EzLocalCacheObject();
