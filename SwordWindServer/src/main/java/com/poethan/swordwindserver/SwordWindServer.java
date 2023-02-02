@@ -1,6 +1,6 @@
 package com.poethan.swordwindserver;
 
-import com.poethan.gear.web.EzWebSocketServer;
+import com.poethan.gear.module.web.EzWebSocketServer;
 import com.poethan.swordwindserver.web.SwordWindServerHandler;
 import lombok.extern.slf4j.Slf4j;
 

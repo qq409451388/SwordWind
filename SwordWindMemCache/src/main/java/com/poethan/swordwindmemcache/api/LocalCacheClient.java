@@ -1,7 +1,5 @@
 package com.poethan.swordwindmemcache.api;
 
-import com.poethan.gear.utils.JsonUtils;
-import com.poethan.gear.web.WebSocketClient;
 import com.poethan.swordwindmemcache.data.CommandEnum;
 import com.poethan.swordwindmemcache.data.GetExecuter;
 import com.poethan.swordwindmemcache.data.MemCacheData;

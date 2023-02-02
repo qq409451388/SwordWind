@@ -3,6 +3,7 @@ package com.poethan.swordwindapi.api;
 import com.poethan.gear.anno.EzLocalLog;
 import com.poethan.gear.utils.SystemUtils;
 import com.poethan.swordwindapi.logic.MemCacheLogic;
+import com.poethan.swordwindapi.logic.TempLogic;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,5 +44,13 @@ public class ChatApi {
     @GetMapping("/cache")
     public void cache(){
         cacheLogic.getMemCacheClient().set(SystemUtils.getTraceId(), SystemUtils.getTraceId());
+    }
+
+    @Resource
+    private TempLogic tempLogic;
+
+    @GetMapping("/push")
+    public void push(String m) {
+        tempLogic.publish(m, "order.direct", "test.routingkey");
     }
 }

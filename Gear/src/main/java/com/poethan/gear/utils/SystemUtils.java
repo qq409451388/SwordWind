@@ -14,6 +14,10 @@ public class SystemUtils {
         return EncodeUtils.md5(System.currentTimeMillis()+getThreadName());
     }
 
+    public static int currentTimeStamp() {
+        return (int) System.currentTimeMillis()/1000;
+    }
+
     public static void startTimeKeeping(){
         getTimmer().start();
     }

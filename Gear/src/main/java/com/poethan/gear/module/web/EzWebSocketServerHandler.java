@@ -1,4 +1,4 @@
-package com.poethan.gear.web;
+package com.poethan.gear.module.web;
 
 import com.poethan.gear.core.Env;
 import io.netty.buffer.ByteBuf;

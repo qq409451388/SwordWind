@@ -1,4 +1,4 @@
-package com.poethan.gear.web;
+package com.poethan.gear.module.web;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;

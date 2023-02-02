@@ -4,3 +4,10 @@ server:
 SwMemCache:
   ip: 127.0.0.1
   port: 6379
+rabbitmq:
+  userName: guest
+  password: guest
+  virtualHost: sun
+  hostName: 10.12.51.111
+  port: 5672
+  connectionMaxNum: 3

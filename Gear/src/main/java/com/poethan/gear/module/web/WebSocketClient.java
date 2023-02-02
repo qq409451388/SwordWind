@@ -1,4 +1,4 @@
-package com.poethan.gear.web;
+package com.poethan.gear.module.web;
 
 import javax.websocket.ContainerProvider;
 import javax.websocket.DeploymentException;
