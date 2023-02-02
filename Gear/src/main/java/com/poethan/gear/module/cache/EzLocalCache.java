@@ -5,6 +5,7 @@ import com.poethan.gear.utils.SystemUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -38,6 +39,11 @@ public class EzLocalCache extends EzCache {
                 DBC.assertTrue(object.isNormal(), String.format(UNSUPPORT_COMMAND, funcName, object.getDataType()));
                 break;
         }
+    }
+
+    @Deprecated
+    public Map<String, EzLocalCacheObject> getAll() {
+        return data;
     }
 
     private boolean isExpire(String key) {

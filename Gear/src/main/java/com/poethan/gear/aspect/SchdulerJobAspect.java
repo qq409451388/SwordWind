@@ -9,7 +9,7 @@ import org.aspectj.lang.annotation.Pointcut;
 @Aspect
 public class SchdulerJobAspect {
     //@Pointcut(value = "execution(com.poethan.gear.anno.SchdulerJob)")
-    @Pointcut(value =  "@annotation(com.poethan.gear.anno.SchdulerJob)")
+    @Pointcut(value =  "@annotation(com.poethan.gear.anno.EzSchdulerJob)")
     public void jobPointCut(){
 
     }
