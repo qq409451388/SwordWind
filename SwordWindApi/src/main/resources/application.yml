@@ -1,6 +1,0 @@
-server:
-  port: 8001
-
-SwMemCache:
-  ip: 127.0.0.1
-  port: 6379
