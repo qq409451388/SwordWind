@@ -41,6 +41,11 @@
             <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
             <version>3.5.12</version>
         </dependency>
+<!--        <dependency>
+            <groupId>com.github.yulichang</groupId>
+            <artifactId>mybatis-plus-join-adapter-jsqlparser</artifactId>
+            <version>1.5.1</version>
+        </dependency>-->
 
         <!-- 数据库驱动 (MySQL示例) -->
         <dependency>
