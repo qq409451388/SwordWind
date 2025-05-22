@@ -38,8 +38,8 @@
         <!-- MyBatis Plus (已包含HikariCP) -->
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.5.6</version>
+            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+            <version>3.5.12</version>
         </dependency>
 
         <!-- 数据库驱动 (MySQL示例) -->
