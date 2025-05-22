@@ -7,14 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-/**
- * @BelongsProject: aichat
- * @BelongsPackage: com.rong360.aichat.conf
- * @Author: liulijun
- * @CreateTime: 2024-06-30  17:49
- * @Description: TODO
- * @Version: 1.0
- */
+
 @Slf4j
 @Component
 public class SocketServer implements CommandLineRunner {
